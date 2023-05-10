@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { AiOutlinePlus } from "react-icons/ai";
 import Navbar from "../components/Navbar";
-import EmptyActivity from "../images/empty-activity.png";
 import ActivityList from "../components/ActivityList";
 import AlertModal from "../components/AlertModal";
+import EmptyActivity from "../images/empty-activity.png";
 
 export default function Dashboard() {
-  const [activities, setActivities] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [activities, setActivities] = useState({
+    data: [],
+    isLoading: true,
+  });
 
   useEffect(() => {
     fetchActivities();
@@ -22,17 +24,27 @@ export default function Dashboard() {
         `${process.env.REACT_APP_API_URL}/activity-groups?email=${process.env.REACT_APP_EMAIL_ENV}`
       );
 
-      setActivities(res.data.data);
+      setActivities({
+        data: res.data.data,
+        isLoading: false,
+      });
     } catch (error) {
       console.log(error);
-    } finally {
-      setIsLoading(false);
+      alert(error.message);
+
+      setActivities({
+        ...activities,
+        isLoading: false,
+      });
     }
   };
 
   const createActivity = async () => {
     try {
-      setIsLoading(true);
+      setActivities({
+        ...activities,
+        isLoading: true,
+      });
 
       await axios.post(`${process.env.REACT_APP_API_URL}/activity-groups`, {
         title: "New Activity",
@@ -42,14 +54,16 @@ export default function Dashboard() {
       fetchActivities();
     } catch (error) {
       console.log(error);
-    } finally {
-      setIsLoading(false);
+      alert(error.message);
     }
   };
 
   const deleteActivity = async (id) => {
     try {
-      setIsLoading(true);
+      setActivities({
+        ...activities,
+        isLoading: true,
+      });
 
       await axios.delete(
         `${process.env.REACT_APP_API_URL}/activity-groups/${id}`
@@ -58,8 +72,8 @@ export default function Dashboard() {
       fetchActivities();
     } catch (error) {
       console.log(error);
+      alert(error.message);
     } finally {
-      setIsLoading(false);
       document.getElementById("showAlertModal").click();
     }
   };
@@ -75,7 +89,7 @@ export default function Dashboard() {
             </h1>
           </div>
           <div>
-            {isLoading ? (
+            {activities.isLoading ? (
               <button
                 style={{ fontSize: "18px" }}
                 className="btn btn-custom btn-blue text-white py-3 px-4 fw-bold rounded-pill"
@@ -99,21 +113,21 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {isLoading ? (
+        {activities.isLoading ? (
           <div className="spinner-border mt-4" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
         ) : (
           <>
-            {Boolean(activities.length) ? (
+            {Boolean(activities.data.length) ? (
               <ActivityList
-                activities={activities}
+                activities={activities.data}
                 deleteActivity={deleteActivity}
               />
             ) : (
               <div
                 data-cy="activity-empty-state"
-                className="mt-4 pointer"
+                className="mt-4 pointer text-center"
                 onClick={() => createActivity()}
               >
                 <img src={EmptyActivity} alt="Empty Activity" />

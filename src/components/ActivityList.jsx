@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import moment from "moment/moment";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import DeleteModal from "./DeleteModal";
+import { Link } from "react-router-dom";
 
 export default function ActivityList({ activities, deleteActivity }) {
   const [selectedActivity, setSelectedActivity] = useState(null);
@@ -18,7 +19,7 @@ export default function ActivityList({ activities, deleteActivity }) {
           <div className="card h-100 shadow border-0 p-2">
             <div className="card-body">
               <h5 className="card-title fw-bold" data-cy="activity-item-title">
-                {activity.title}
+                <Link to={`/detail/${activity.id}`}>{activity.title}</Link>
               </h5>
               <div className="card-text d-flex justify-content-between mt-10">
                 <div>

@@ -2,6 +2,12 @@ body {
   background-color: #F9F9F9 !important;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+  transition: .5s;
+}
+
 .bg-blue {
   background-color: #16ABF8 !important;
 }
@@ -56,4 +62,9 @@ body {
 
 .pointer {
   cursor: pointer;
+}
+
+.finished {
+  text-decoration: line-through;
+  color: gray;
 }

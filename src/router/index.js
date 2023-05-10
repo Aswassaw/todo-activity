@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "../pages/Dashboard";
+import Detail from "../pages/Detail";
+import NotFound from "./../pages/NotFound";
 
 export default function router() {
   return (
@@ -9,7 +11,10 @@ export default function router() {
         <Route path="/">
           <Route index element={<Dashboard />} />
         </Route>
-        <Route path="*" element={<h1>Not Found</h1>} />
+        <Route path="/detail/:id">
+          <Route index element={<Detail />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
