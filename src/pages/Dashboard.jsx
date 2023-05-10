@@ -128,11 +128,14 @@ export default function Dashboard() {
               />
             ) : (
               <div
-                data-cy="activity-empty-state"
                 className="mt-4 pointer text-center"
                 onClick={() => createActivity()}
               >
-                <img src={EmptyActivity} alt="Empty Activity" />
+                <img
+                  data-cy="activity-empty-state"
+                  src={EmptyActivity}
+                  alt="Empty Activity"
+                />
               </div>
             )}
           </>

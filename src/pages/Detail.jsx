@@ -420,12 +420,15 @@ export default function Detail() {
               />
             ) : (
               <div
-                data-cy="todo-empty-state"
                 data-bs-toggle="modal"
                 data-bs-target="#createModal"
                 className="mt-4 pointer text-center"
               >
-                <img src={EmptyItem} alt="Empty Item" />
+                <img
+                  data-cy="todo-empty-state"
+                  src={EmptyItem}
+                  alt="Empty Item"
+                />
               </div>
             )}
           </>
