@@ -144,15 +144,16 @@ export default function CreateModal({ loading, createAction }) {
               >
                 PRIORITY
               </label>
-              <Select
-                data-cy={`modal-add-priority-dropdown`}
-                value={priority}
-                className="form-control form-control-lg p-0 border-0"
-                onChange={(selected) => setPriority(selected)}
-                options={options}
-                placeholder="Select Priority"
-                getOptionLabel={getOptionLabel}
-              />
+              <div data-cy={`modal-add-priority-dropdown`}>
+                <Select
+                  value={priority}
+                  className="form-control form-control-lg p-0 border-0"
+                  onChange={(selected) => setPriority(selected)}
+                  options={options}
+                  placeholder="Select Priority"
+                  getOptionLabel={getOptionLabel}
+                />
+              </div>
             </div>
           </div>
           <div className="modal-footer px-5">
