@@ -294,7 +294,7 @@ export default function Detail() {
                     <li data-cy={`sort-latest`}>
                       <Link
                         to={`/detail/${urlParams.id}`}
-                        className="dropdown-item py-2 px-4"
+                        className="dropdown-item pb-2 px-4"
                         href="#"
                       >
                         <div className="d-flex justify-content-between align-items-center">
@@ -311,9 +311,7 @@ export default function Detail() {
                           </span>
                         </div>
                       </Link>
-                    </li>
-                    <li>
-                      <hr className="dropdown-divider" />
+                      <hr className="p-0 m-0" />
                     </li>
                     <li data-cy={`sort-oldest`}>
                       <Link
@@ -335,9 +333,7 @@ export default function Detail() {
                           </span>
                         </div>
                       </Link>
-                    </li>
-                    <li>
-                      <hr className="dropdown-divider" />
+                      <hr className="p-0 m-0" />
                     </li>
                     <li data-cy={`sort-az`}>
                       <Link
@@ -359,9 +355,7 @@ export default function Detail() {
                           </span>
                         </div>
                       </Link>
-                    </li>
-                    <li>
-                      <hr className="dropdown-divider" />
+                      <hr className="p-0 m-0" />
                     </li>
                     <li data-cy={`sort-za`}>
                       <Link
@@ -383,14 +377,12 @@ export default function Detail() {
                           </span>
                         </div>
                       </Link>
-                    </li>
-                    <li>
-                      <hr className="dropdown-divider" />
+                      <hr className="p-0 m-0" />
                     </li>
                     <li data-cy={`sort-unfinished`}>
                       <Link
                         to={`/detail/${urlParams.id}?sort=unfinished`}
-                        className="dropdown-item py-2 px-4"
+                        className="dropdown-item pt-2 px-4"
                         href="#"
                       >
                         <div className="d-flex justify-content-between align-items-center">
