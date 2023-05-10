@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import DeleteModal from "./DeleteModal";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { GoPrimitiveDot } from "react-icons/go";
+import { BsPencilSquare } from "react-icons/bs";
+import EditModal from "./EditModal";
 
-export default function TodoList({ todo, deleteTodo, finishTodo }) {
-  const [selectedTodo, setSelectedActivity] = useState(null);
-
-  console.log(todo);
+export default function TodoList({
+  loading,
+  todo,
+  deleteTodo,
+  finishTodo,
+  editTodo,
+}) {
+  const [selectedTodo, setSelectedTodo] = useState(null);
 
   return (
     <div className="mt-4">
@@ -47,11 +53,17 @@ export default function TodoList({ todo, deleteTodo, finishTodo }) {
                 <span className={`fw-bold ${!td.is_active && "finished"}`}>
                   {td.title}
                 </span>
+                <BsPencilSquare
+                  className="mt-1 ms-3 pointer"
+                  onClick={() => setSelectedTodo(td)}
+                  data-bs-toggle="modal"
+                  data-bs-target="#editModal"
+                />
               </div>
               <div>
                 <div
                   className="pointer"
-                  onClick={() => setSelectedActivity(td)}
+                  onClick={() => setSelectedTodo(td)}
                   data-bs-toggle="modal"
                   data-bs-target="#deleteModal"
                 >
@@ -63,6 +75,7 @@ export default function TodoList({ todo, deleteTodo, finishTodo }) {
         </div>
       ))}
 
+      <EditModal loading={loading} editAction={editTodo} data={selectedTodo} />
       <DeleteModal
         text="Apakah anda yakin menghapus todo"
         item={selectedTodo}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { AiOutlinePlus } from "react-icons/ai";
-import { BsPen } from "react-icons/bs";
+import { BsPencilSquare } from "react-icons/bs";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar";
@@ -132,6 +132,25 @@ export default function Detail() {
     }
   };
 
+  const editTodo = async (id, val) => {
+    try {
+      setActivity({
+        ...activity,
+        isLoading: true,
+      });
+
+      await axios.patch(`${process.env.REACT_APP_API_URL}/todo-items/${id}`, {
+        title: val.listItemName,
+        priority: val.priority,
+      });
+
+      fetchActivity();
+    } catch (error) {
+      console.log(error);
+      alert(error.message);
+    }
+  };
+
   const makeInputActive = () => {
     setInputActive(!inputActive);
   };
@@ -183,7 +202,7 @@ export default function Detail() {
                   </span>
                 )}
 
-                <BsPen
+                <BsPencilSquare
                   className="fs-4 mt-2 pointer"
                   onClick={makeInputActive}
                 />
@@ -199,9 +218,11 @@ export default function Detail() {
             </div>
             {activity.data?.todo_items?.length ? (
               <TodoList
+                activity={activity.isLoading}
                 todo={activity.data?.todo_items}
                 deleteTodo={deleteTodo}
                 finishTodo={finishTodo}
+                editTodo={editTodo}
               />
             ) : (
               <div
@@ -216,7 +237,7 @@ export default function Detail() {
         )}
       </div>
 
-      <CreateModal item={activity} createAction={createTodo} />
+      <CreateModal loading={activity.isLoading} createAction={createTodo} />
       <AlertModal text={"Todo berhasil dihapus"} />
     </>
   );

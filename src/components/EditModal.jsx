@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { GoPrimitiveDot } from "react-icons/go";
 
@@ -69,28 +69,29 @@ const getOptionLabel = (option) => {
   }
 };
 
-export default function CreateModal({ loading, createAction }) {
+export default function EditModal({ loading, editAction, data }) {
   const [listItemName, setListItemName] = useState("");
   const [priority, setPriority] = useState(null);
 
-  const reset = () => {
-    setListItemName("");
-    setPriority(null);
-  };
+  useEffect(() => {
+    if (data?.title) setListItemName(data?.title);
+    if (data?.priority)
+      setPriority(options.filter((opt) => opt.value === data?.priority)[0]);
+  }, [data?.priority, data?.title]);
 
   return (
     <div
       className="modal fade"
-      id="createModal"
+      id="editModal"
       tabIndex="-1"
-      aria-labelledby="createModalLabel"
+      aria-labelledby="editModalLabel"
       aria-hidden="true"
     >
       <div className="modal-dialog modal-lg modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header px-5">
             <h1 className="modal-title fs-5" id="staticBackdropLabel">
-              Tambah List Item
+              Edit List Item
             </h1>
             <button
               type="button"
@@ -132,7 +133,7 @@ export default function CreateModal({ loading, createAction }) {
               type="button"
               className="btn btn-secondary d-none"
               data-bs-dismiss="modal"
-              id="closeCreateModal"
+              id="closeEditModal"
             >
               Close
             </button>
@@ -153,12 +154,13 @@ export default function CreateModal({ loading, createAction }) {
                 style={{ fontSize: "18px" }}
                 disabled={listItemName && priority ? false : true}
                 className="btn btn-custom btn-blue text-white py-3 px-4 fw-bold rounded-pill"
-                onClick={() =>
-                  createAction(
-                    { listItemName, priority: priority.value },
-                    reset
-                  )
-                }
+                onClick={() => {
+                  editAction(data.id, {
+                    listItemName,
+                    priority: priority.value,
+                  });
+                  document.getElementById("closeEditModal").click();
+                }}
               >
                 Simpan
               </button>
