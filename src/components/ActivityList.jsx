@@ -11,11 +11,7 @@ export default function ActivityList({ activities, deleteActivity }) {
   return (
     <div className="row row-cols-1 row-cols-md-4 g-4 mt-4">
       {activities.map((activity) => (
-        <div
-          data-cy={`activity-item`}
-          key={activity.id}
-          className="col"
-        >
+        <div data-cy={`activity-item`} key={activity.id} className="col">
           <div className="card h-100 shadow border-0 p-2">
             <div className="card-body">
               <h5 className="card-title fw-bold" data-cy="activity-item-title">
@@ -29,10 +25,11 @@ export default function ActivityList({ activities, deleteActivity }) {
                 </div>
                 <div
                   className="pointer"
-                  onClick={() => setSelectedActivity(activity)}
+                  onClick={() => {
+                    setSelectedActivity(activity);
+                    document.getElementById("showDeleteModal").click();
+                  }}
                   data-cy="activity-item-delete-button"
-                  data-bs-toggle="modal"
-                  data-bs-target="#deleteModal"
                 >
                   <RiDeleteBin6Line className="fs-5" />
                 </div>

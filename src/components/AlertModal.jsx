@@ -7,7 +7,6 @@ export default function AlertModal({ text }) {
       <button
         className="d-none"
         id="showAlertModal"
-        data-cy="activity-item-delete-button"
         data-bs-toggle="modal"
         data-bs-target="#alertModal"
       >
