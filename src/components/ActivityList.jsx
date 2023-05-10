@@ -23,16 +23,14 @@ export default function ActivityList({ activities, deleteActivity }) {
                     {moment(activity.created_at).format("D MMMM YYYY")}
                   </p>
                 </div>
-                <div
-                  className="pointer"
+                <RiDeleteBin6Line
+                  data-cy="activity-item-delete-button"
+                  className="pointer fs-5"
                   onClick={() => {
                     setSelectedActivity(activity);
                     document.getElementById("showDeleteModal").click();
                   }}
-                  data-cy="activity-item-delete-button"
-                >
-                  <RiDeleteBin6Line className="fs-5" />
-                </div>
+                />
               </div>
             </div>
           </div>
