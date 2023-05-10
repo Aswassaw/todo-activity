@@ -83,7 +83,10 @@ const getOptionLabel = (option) => {
 
 export default function CreateModal({ loading, createAction }) {
   const [listItemName, setListItemName] = useState("");
-  const [priority, setPriority] = useState(null);
+  const [priority, setPriority] = useState({
+    value: "very-high",
+    label: "Very High",
+  });
 
   const reset = () => {
     setListItemName("");
