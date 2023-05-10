@@ -27,6 +27,7 @@ export default function Detail() {
     isLoading: true,
   });
   const [inputActive, setInputActive] = useState(false);
+  const [alertModal, showAlertModal] = useState(false);
 
   useEffect(() => {
     fetchActivity();
@@ -173,7 +174,7 @@ export default function Detail() {
       console.log(error);
       alert(error.message);
     } finally {
-      document.getElementById("showAlertModal").click();
+      showAlertModal(true);
     }
   };
 
@@ -286,10 +287,7 @@ export default function Detail() {
                   >
                     <BiSortAlt2 />
                   </button>
-                  <ul
-                    className="dropdown-menu"
-                    style={{ width: "230px" }}
-                  >
+                  <ul className="dropdown-menu" style={{ width: "230px" }}>
                     <li data-cy={`sort-selection`}>
                       <Link
                         to={`/detail/${urlParams.id}`}
@@ -435,7 +433,11 @@ export default function Detail() {
       </div>
 
       <CreateModal loading={activity.isLoading} createAction={createTodo} />
-      <AlertModal text={"Todo berhasil dihapus"} />
+      <AlertModal
+        alertModal={alertModal}
+        showAlertModal={showAlertModal}
+        text={"Todo berhasil dihapus"}
+      />
     </>
   );
 }

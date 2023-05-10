@@ -90,7 +90,6 @@ export default function CreateModal({ loading, createAction }) {
 
   const reset = () => {
     setListItemName("");
-    setPriority(null);
   };
 
   return (

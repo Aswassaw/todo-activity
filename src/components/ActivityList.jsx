@@ -2,8 +2,8 @@ import "moment/locale/id";
 import React, { useState } from "react";
 import moment from "moment/moment";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import DeleteModal from "./DeleteModal";
 import { useNavigate } from "react-router-dom";
+import DeleteModal from "./DeleteModal";
 
 export default function ActivityList({ activities, deleteActivity }) {
   const navigate = useNavigate();
