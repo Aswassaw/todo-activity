@@ -20,6 +20,7 @@ export default function AlertModal({ text }) {
         tabIndex="-1"
         aria-labelledby="alertModalLabel"
         aria-hidden="true"
+        data-cy="modal-information"
       >
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
