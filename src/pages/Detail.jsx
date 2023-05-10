@@ -287,7 +287,7 @@ export default function Detail() {
                     <BiSortAlt2 />
                   </button>
                   <ul
-                    data-cy={`sort-parent`}
+                    data-cy={`sort-selection`}
                     className="dropdown-menu"
                     style={{ width: "230px" }}
                   >
