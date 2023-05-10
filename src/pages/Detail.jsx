@@ -287,11 +287,10 @@ export default function Detail() {
                     <BiSortAlt2 />
                   </button>
                   <ul
-                    data-cy={`sort-selection`}
                     className="dropdown-menu"
                     style={{ width: "230px" }}
                   >
-                    <li data-cy={`sort-latest`}>
+                    <li data-cy={`sort-selection`}>
                       <Link
                         to={`/detail/${urlParams.id}`}
                         className="dropdown-item pb-2 px-4"
@@ -313,7 +312,7 @@ export default function Detail() {
                       </Link>
                       <hr className="p-0 m-0" />
                     </li>
-                    <li data-cy={`sort-oldest`}>
+                    <li data-cy={`sort-selection`}>
                       <Link
                         to={`/detail/${urlParams.id}?sort=old`}
                         className="dropdown-item py-2 px-4"
@@ -335,7 +334,7 @@ export default function Detail() {
                       </Link>
                       <hr className="p-0 m-0" />
                     </li>
-                    <li data-cy={`sort-az`}>
+                    <li data-cy={`sort-selection`}>
                       <Link
                         to={`/detail/${urlParams.id}?sort=az`}
                         className="dropdown-item py-2 px-4"
@@ -357,7 +356,7 @@ export default function Detail() {
                       </Link>
                       <hr className="p-0 m-0" />
                     </li>
-                    <li data-cy={`sort-za`}>
+                    <li data-cy={`sort-selection`}>
                       <Link
                         to={`/detail/${urlParams.id}?sort=za`}
                         className="dropdown-item py-2 px-4"
@@ -379,7 +378,7 @@ export default function Detail() {
                       </Link>
                       <hr className="p-0 m-0" />
                     </li>
-                    <li data-cy={`sort-unfinished`}>
+                    <li data-cy={`sort-selection`}>
                       <Link
                         to={`/detail/${urlParams.id}?sort=unfinished`}
                         className="dropdown-item pt-2 px-4"
