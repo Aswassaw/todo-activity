@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { AiOutlineCheck, AiOutlinePlus } from "react-icons/ai";
