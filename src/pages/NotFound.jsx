@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../components/Navbar";
 
 export default function NotFound() {
+  useEffect(() => {
+    document.title = `404 Not Found`;
+  }, []);
+
   return (
     <>
       <Navbar />

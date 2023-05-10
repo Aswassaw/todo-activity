@@ -150,7 +150,6 @@ export default function EditModal({ loading, editAction, data }) {
               </button>
             ) : (
               <button
-                data-cy="activity-add-button"
                 style={{ fontSize: "18px" }}
                 disabled={listItemName && priority ? false : true}
                 className="btn btn-custom btn-blue text-white py-3 px-4 fw-bold rounded-pill"

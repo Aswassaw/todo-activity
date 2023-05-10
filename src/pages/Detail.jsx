@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { IoChevronBackOutline } from "react-icons/io5";
-import { AiOutlinePlus } from "react-icons/ai";
-import { BsPencilSquare } from "react-icons/bs";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { AiOutlineCheck, AiOutlinePlus } from "react-icons/ai";
+import { BiSortAZ, BiSortAlt2, BiSortZA } from "react-icons/bi";
+import { BsPencilSquare, BsSortDown, BsSortUpAlt } from "react-icons/bs";
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import axios from "axios";
+import _ from "lodash";
 import Navbar from "../components/Navbar";
 import TodoList from "../components/TodoList";
 import EmptyItem from "../images/empty-item.png";
@@ -13,6 +20,7 @@ import AlertModal from "../components/AlertModal";
 export default function Detail() {
   const navigate = useNavigate();
   const urlParams = useParams();
+  const [queryParams] = useSearchParams();
   const [activity, setActivity] = useState({
     data: null,
     isLoading: true,
@@ -26,6 +34,40 @@ export default function Detail() {
   }, []);
 
   useEffect(() => {
+    if (!activity.isLoading) {
+      let activityCopy = { ...activity };
+
+      if (queryParams.get("sort") === "old") {
+        activityCopy.data.todo_items = _.reverse(activityCopy.data.todo_items);
+        setActivity(activityCopy);
+      } else if (queryParams.get("sort") === "az") {
+        activityCopy.data.todo_items = _.sortBy(activityCopy.data.todo_items, [
+          "title",
+        ]);
+        setActivity(activityCopy);
+      } else if (queryParams.get("sort") === "za") {
+        activityCopy.data.todo_items = _.orderBy(
+          activityCopy.data.todo_items,
+          ["title"],
+          ["desc"]
+        );
+        setActivity(activityCopy);
+      } else if (queryParams.get("sort") === "unfinished") {
+        const finishedTodo = activityCopy.data.todo_items.filter(
+          (todo) => todo.is_active === 0
+        );
+        const unFinishedTodo = activityCopy.data.todo_items.filter(
+          (todo) => todo.is_active === 1
+        );
+        activityCopy.data.todo_items = [...unFinishedTodo, ...finishedTodo];
+        setActivity(activityCopy);
+      } else {
+        fetchActivity();
+      }
+    }
+  }, [queryParams]);
+
+  useEffect(() => {
     const input = document.getElementById("activityInput");
     if (input) input.focus();
   }, [inputActive]);
@@ -35,6 +77,26 @@ export default function Detail() {
       const res = await axios.get(
         `${process.env.REACT_APP_API_URL}/activity-groups/${urlParams.id}?email=${process.env.REACT_APP_EMAIL_ENV}`
       );
+
+      if (queryParams.get("sort") === "old") {
+        res.data.todo_items = _.reverse(res.data.todo_items);
+      } else if (queryParams.get("sort") === "az") {
+        res.data.todo_items = _.sortBy(res.data.todo_items, ["title"]);
+      } else if (queryParams.get("sort") === "za") {
+        res.data.todo_items = _.orderBy(
+          res.data.todo_items,
+          ["title"],
+          ["desc"]
+        );
+      } else if (queryParams.get("sort") === "unfinished") {
+        const finishedTodo = res.data.todo_items.filter(
+          (todo) => todo.is_active === 0
+        );
+        const unFinishedTodo = res.data.todo_items.filter(
+          (todo) => todo.is_active === 1
+        );
+        res.data.todo_items = [...unFinishedTodo, ...finishedTodo];
+      }
 
       setActivity({
         data: res.data,
@@ -207,14 +269,145 @@ export default function Detail() {
                   onClick={makeInputActive}
                 />
               </div>
-              <button
-                style={{ fontSize: "18px" }}
-                className="btn btn-custom btn-blue text-white py-3 px-4 fw-bold rounded-pill"
-                data-bs-toggle="modal"
-                data-bs-target="#createModal"
-              >
-                <AiOutlinePlus /> Tambah
-              </button>
+              <div>
+                <div className="btn-group me-3">
+                  <button
+                    type="button"
+                    className="btn btn-lg border fs-4 text-secondary rounded-circle"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <BiSortAlt2 />
+                  </button>
+                  <ul className="dropdown-menu" style={{ width: "230px" }}>
+                    <li>
+                      <Link
+                        to={`/detail/${urlParams.id}`}
+                        className="dropdown-item py-2 px-4"
+                        href="#"
+                      >
+                        <div className="d-flex justify-content-between align-items-center">
+                          <span>
+                            <span className="fs-5 text-blue me-2">
+                              <BsSortDown />
+                            </span>{" "}
+                            Terbaru
+                          </span>
+                          <span className="mt-1">
+                            {queryParams.get("sort") === null && (
+                              <AiOutlineCheck />
+                            )}
+                          </span>
+                        </div>
+                      </Link>
+                    </li>
+                    <li>
+                      <hr className="dropdown-divider" />
+                    </li>
+                    <li>
+                      <Link
+                        to={`/detail/${urlParams.id}?sort=old`}
+                        className="dropdown-item py-2 px-4"
+                        href="#"
+                      >
+                        <div className="d-flex justify-content-between align-items-center">
+                          <span>
+                            <span className="fs-5 text-blue me-2">
+                              <BsSortUpAlt />
+                            </span>{" "}
+                            Terlama
+                          </span>
+                          <span className="mt-1">
+                            {queryParams.get("sort") === "old" && (
+                              <AiOutlineCheck />
+                            )}
+                          </span>
+                        </div>
+                      </Link>
+                    </li>
+                    <li>
+                      <hr className="dropdown-divider" />
+                    </li>
+                    <li>
+                      <Link
+                        to={`/detail/${urlParams.id}?sort=az`}
+                        className="dropdown-item py-2 px-4"
+                        href="#"
+                      >
+                        <div className="d-flex justify-content-between align-items-center">
+                          <span>
+                            <span className="fs-5 text-blue me-2">
+                              <BiSortAZ />
+                            </span>{" "}
+                            A-Z
+                          </span>
+                          <span className="mt-1">
+                            {queryParams.get("sort") === "az" && (
+                              <AiOutlineCheck />
+                            )}
+                          </span>
+                        </div>
+                      </Link>
+                    </li>
+                    <li>
+                      <hr className="dropdown-divider" />
+                    </li>
+                    <li>
+                      <Link
+                        to={`/detail/${urlParams.id}?sort=za`}
+                        className="dropdown-item py-2 px-4"
+                        href="#"
+                      >
+                        <div className="d-flex justify-content-between align-items-center">
+                          <span>
+                            <span className="fs-5 text-blue me-2">
+                              <BiSortZA />
+                            </span>{" "}
+                            Z-A
+                          </span>
+                          <span className="mt-1">
+                            {queryParams.get("sort") === "za" && (
+                              <AiOutlineCheck />
+                            )}
+                          </span>
+                        </div>
+                      </Link>
+                    </li>
+                    <li>
+                      <hr className="dropdown-divider" />
+                    </li>
+                    <li>
+                      <Link
+                        to={`/detail/${urlParams.id}?sort=unfinished`}
+                        className="dropdown-item py-2 px-4"
+                        href="#"
+                      >
+                        <div className="d-flex justify-content-between align-items-center">
+                          <span>
+                            <span className="fs-5 text-blue me-2">
+                              <BiSortAlt2 />
+                            </span>{" "}
+                            Belum Selesai
+                          </span>
+                          <span className="mt-1">
+                            {queryParams.get("sort") === "unfinished" && (
+                              <AiOutlineCheck />
+                            )}
+                          </span>
+                        </div>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+                <button
+                  style={{ fontSize: "18px" }}
+                  className="btn btn-custom btn-blue text-white py-3 px-4 fw-bold rounded-pill"
+                  data-bs-toggle="modal"
+                  data-bs-target="#createModal"
+                >
+                  <AiOutlinePlus /> Tambah
+                </button>
+              </div>
             </div>
             {activity.data?.todo_items?.length ? (
               <TodoList

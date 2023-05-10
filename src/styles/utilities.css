@@ -12,6 +12,10 @@ a {
   background-color: #16ABF8 !important;
 }
 
+.text-blue {
+  color: #16ABF8 !important;
+}
+
 .w-primary {
   max-width: 1000px !important;
 }
@@ -57,11 +61,11 @@ a {
 }
 
 .mt-10 {
-  margin-top: 135px;
+  margin-top: 135px !important;
 }
 
 .pointer {
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 .finished {
