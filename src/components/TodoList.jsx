@@ -16,13 +16,18 @@ export default function TodoList({
 
   return (
     <div className="mt-4">
-      {todo?.map((td) => (
-        <div key={td.id} className="card my-3 shadow border-0 p-2">
+      {todo?.map((td, index) => (
+        <div
+          data-cy={`todo-item-${index}`}
+          key={td.id}
+          className="card my-3 shadow border-0 p-2"
+        >
           <div className="card-body">
             <div className="d-flex justify-content-between">
               <div className="d-flex align-items-center">
                 <div className="form-check">
                   <input
+                    data-cy={`todo-item-checkbox`}
                     style={{ width: "25px", height: "25px" }}
                     className="form-check-input"
                     type="checkbox"
@@ -48,12 +53,16 @@ export default function TodoList({
                     }`,
                   }}
                 >
-                  <GoPrimitiveDot />
+                  <GoPrimitiveDot data-cy={`todo-item-priority-indicator`} />
                 </span>
-                <span className={`fw-bold ${!td.is_active && "finished"}`}>
+                <span
+                  data-cy={`todo-item-title`}
+                  className={`fw-bold ${!td.is_active && "finished"}`}
+                >
                   {td.title}
                 </span>
                 <BsPencilSquare
+                  data-cy={`todo-item-edit-button`}
                   className="mt-1 ms-3 pointer"
                   onClick={() => setSelectedTodo(td)}
                   data-bs-toggle="modal"
@@ -62,6 +71,7 @@ export default function TodoList({
               </div>
               <div>
                 <div
+                  data-cy={`todo-item-delete-button`}
                   className="pointer"
                   onClick={() => setSelectedTodo(td)}
                   data-bs-toggle="modal"

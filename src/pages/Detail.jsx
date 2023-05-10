@@ -229,7 +229,7 @@ export default function Detail() {
           <>
             <div className="d-flex justify-content-between align-items-center">
               <div className="d-flex align-items-center">
-                <Link className="fs-2" to={"/"}>
+                <Link data-cy="todo-back-button" className="fs-2" to={"/"}>
                   <IoChevronBackOutline />
                 </Link>
                 {inputActive ? (
@@ -259,12 +259,17 @@ export default function Detail() {
                     }}
                   />
                 ) : (
-                  <span className="mx-3 fw-bold fs-1" onClick={makeInputActive}>
+                  <span
+                    data-cy="todo-title"
+                    className="mx-3 fw-bold fs-1"
+                    onClick={makeInputActive}
+                  >
                     {activity.data?.title}
                   </span>
                 )}
 
                 <BsPencilSquare
+                  data-cy="todo-title-edit-button"
                   className="fs-4 mt-2 pointer"
                   onClick={makeInputActive}
                 />
@@ -272,6 +277,7 @@ export default function Detail() {
               <div>
                 <div className="btn-group me-3">
                   <button
+                    data-cy="todo-sort-button"
                     type="button"
                     className="btn btn-lg border fs-4 text-secondary rounded-circle"
                     data-bs-toggle="dropdown"
@@ -279,8 +285,12 @@ export default function Detail() {
                   >
                     <BiSortAlt2 />
                   </button>
-                  <ul className="dropdown-menu" style={{ width: "230px" }}>
-                    <li>
+                  <ul
+                    data-cy={`sort-parent`}
+                    className="dropdown-menu"
+                    style={{ width: "230px" }}
+                  >
+                    <li data-cy={`sort-latest`}>
                       <Link
                         to={`/detail/${urlParams.id}`}
                         className="dropdown-item py-2 px-4"
@@ -304,7 +314,7 @@ export default function Detail() {
                     <li>
                       <hr className="dropdown-divider" />
                     </li>
-                    <li>
+                    <li data-cy={`sort-oldest`}>
                       <Link
                         to={`/detail/${urlParams.id}?sort=old`}
                         className="dropdown-item py-2 px-4"
@@ -328,7 +338,7 @@ export default function Detail() {
                     <li>
                       <hr className="dropdown-divider" />
                     </li>
-                    <li>
+                    <li data-cy={`sort-az`}>
                       <Link
                         to={`/detail/${urlParams.id}?sort=az`}
                         className="dropdown-item py-2 px-4"
@@ -352,7 +362,7 @@ export default function Detail() {
                     <li>
                       <hr className="dropdown-divider" />
                     </li>
-                    <li>
+                    <li data-cy={`sort-za`}>
                       <Link
                         to={`/detail/${urlParams.id}?sort=za`}
                         className="dropdown-item py-2 px-4"
@@ -376,7 +386,7 @@ export default function Detail() {
                     <li>
                       <hr className="dropdown-divider" />
                     </li>
-                    <li>
+                    <li data-cy={`sort-unfinished`}>
                       <Link
                         to={`/detail/${urlParams.id}?sort=unfinished`}
                         className="dropdown-item py-2 px-4"
@@ -400,6 +410,7 @@ export default function Detail() {
                   </ul>
                 </div>
                 <button
+                  data-cy="todo-add-button"
                   style={{ fontSize: "18px" }}
                   className="btn btn-custom btn-blue text-white py-3 px-4 fw-bold rounded-pill"
                   data-bs-toggle="modal"
@@ -419,6 +430,7 @@ export default function Detail() {
               />
             ) : (
               <div
+                data-cy="todo-empty-state"
                 data-bs-toggle="modal"
                 data-bs-target="#createModal"
                 className="mt-4 pointer text-center"

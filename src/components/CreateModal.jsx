@@ -14,57 +14,69 @@ const getOptionLabel = (option) => {
   switch (option.value) {
     case "very-high":
       return (
-        <>
-          <span style={{ color: "#ED4C5C" }}>
-            <GoPrimitiveDot />
-          </span>{" "}
-          {option.label}
-        </>
+        <div data-cy={`modal-add-priority-item`}>
+          <div data-cy={`modal-add-priority-very-high`}>
+            <span style={{ color: "#ED4C5C" }}>
+              <GoPrimitiveDot />
+            </span>{" "}
+            {option.label}
+          </div>
+        </div>
       );
     case "high":
       return (
-        <>
-          <span style={{ color: "#F8A541" }}>
-            <GoPrimitiveDot />
-          </span>{" "}
-          {option.label}
-        </>
+        <div data-cy={`modal-add-priority-item`}>
+          <div data-cy={`modal-add-priority-high`}>
+            <span style={{ color: "#F8A541" }}>
+              <GoPrimitiveDot />
+            </span>{" "}
+            {option.label}
+          </div>
+        </div>
       );
     case "normal":
       return (
-        <>
-          <span style={{ color: "#00A790" }}>
-            <GoPrimitiveDot />
-          </span>{" "}
-          {option.label}
-        </>
+        <div data-cy={`modal-add-priority-item`}>
+          <div data-cy={`modal-add-priority-medium`}>
+            <span style={{ color: "#00A790" }}>
+              <GoPrimitiveDot />
+            </span>{" "}
+            {option.label}
+          </div>
+        </div>
       );
     case "low":
       return (
-        <>
-          <span style={{ color: "#428BC1" }}>
-            <GoPrimitiveDot />
-          </span>{" "}
-          {option.label}
-        </>
+        <div data-cy={`modal-add-priority-item`}>
+          <div data-cy={`modal-add-priority-low`}>
+            <span style={{ color: "#428BC1" }}>
+              <GoPrimitiveDot />
+            </span>{" "}
+            {option.label}
+          </div>
+        </div>
       );
     case "very-low":
       return (
-        <>
-          <span style={{ color: "#8942C1" }}>
-            <GoPrimitiveDot />
-          </span>{" "}
-          {option.label}
-        </>
+        <div data-cy={`modal-add-priority-item`}>
+          <div data-cy={`modal-add-priority-very-low`}>
+            <span style={{ color: "#8942C1" }}>
+              <GoPrimitiveDot />
+            </span>{" "}
+            {option.label}
+          </div>
+        </div>
       );
     default:
       return (
-        <>
-          <span>
-            <GoPrimitiveDot />
-          </span>{" "}
-          {option.label}
-        </>
+        <div data-cy={`modal-add-priority-item`}>
+          <div data-cy={`modal-add-priority-another`}>
+            <span>
+              <GoPrimitiveDot />
+            </span>{" "}
+            {option.label}
+          </div>
+        </div>
       );
   }
 };
@@ -89,10 +101,15 @@ export default function CreateModal({ loading, createAction }) {
       <div className="modal-dialog modal-lg modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header px-5">
-            <h1 className="modal-title fs-5" id="staticBackdropLabel">
+            <h1
+              data-cy={`modal-add-title`}
+              className="modal-title fs-5"
+              id="staticBackdropLabel"
+            >
               Tambah List Item
             </h1>
             <button
+              data-cy={`modal-add-close-button`}
               type="button"
               className="btn-close"
               data-bs-dismiss="modal"
@@ -101,10 +118,15 @@ export default function CreateModal({ loading, createAction }) {
           </div>
           <div className="modal-body p-5 row d-flex">
             <div className="mb-3">
-              <label htmlFor="listItemName" className="form-label fw-bold">
+              <label
+                data-cy={`modal-add-name-title`}
+                htmlFor="listItemName"
+                className="form-label fw-bold"
+              >
                 NAMA LIST ITEM
               </label>
               <input
+                data-cy={`modal-add-name-input`}
                 type="text"
                 value={listItemName}
                 onChange={(e) => setListItemName(e.target.value)}
@@ -114,10 +136,15 @@ export default function CreateModal({ loading, createAction }) {
               />
             </div>
             <div className="mb-3" style={{ maxWidth: "300px" }}>
-              <label htmlFor="priority" className="form-label fw-bold">
+              <label
+                data-cy={`modal-add-priority-title`}
+                htmlFor="priority"
+                className="form-label fw-bold"
+              >
                 PRIORITY
               </label>
               <Select
+                data-cy={`modal-add-priority-dropdown`}
                 value={priority}
                 className="form-control form-control-lg p-0 border-0"
                 onChange={(selected) => setPriority(selected)}
@@ -149,6 +176,7 @@ export default function CreateModal({ loading, createAction }) {
               </button>
             ) : (
               <button
+                data-cy={`modal-add-save-button`}
                 style={{ fontSize: "18px" }}
                 disabled={listItemName && priority ? false : true}
                 className="btn btn-custom btn-blue text-white py-3 px-4 fw-bold rounded-pill"
