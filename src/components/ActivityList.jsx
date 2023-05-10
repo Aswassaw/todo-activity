@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function ActivityList({ activities, deleteActivity }) {
   const navigate = useNavigate();
+  const [deleteModal, showDeleteModal] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState(null);
 
   return (
@@ -35,10 +36,11 @@ export default function ActivityList({ activities, deleteActivity }) {
                 </div>
                 <div
                   className="pointer"
-                  onClick={() => setSelectedActivity(activity)}
+                  onClick={() => {
+                    setSelectedActivity(activity);
+                    showDeleteModal(true);
+                  }}
                   data-cy="activity-item-delete-button"
-                  data-bs-toggle="modal"
-                  data-bs-target="#deleteModal"
                 >
                   <RiDeleteBin6Line className="fs-5" />
                 </div>
@@ -49,6 +51,8 @@ export default function ActivityList({ activities, deleteActivity }) {
       </div>
 
       <DeleteModal
+        deleteModal={deleteModal}
+        showDeleteModal={showDeleteModal}
         text="Apakah anda yakin menghapus activity"
         item={selectedActivity}
         deleteAction={deleteActivity}
