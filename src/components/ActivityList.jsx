@@ -38,7 +38,7 @@ export default function ActivityList({ activities, deleteActivity }) {
                   className="pointer"
                   onClick={() => {
                     setSelectedActivity(activity);
-                    showDeleteModal(true);
+                    showDeleteModal(!deleteModal);
                   }}
                   data-cy="activity-item-delete-button"
                 >
