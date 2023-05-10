@@ -12,6 +12,7 @@ export default function Dashboard() {
     data: [],
     isLoading: true,
   });
+  const [alertModal, showAlertModal] = useState(false);
 
   useEffect(() => {
     fetchActivities();
@@ -75,7 +76,7 @@ export default function Dashboard() {
       console.log(error);
       alert(error.message);
     } finally {
-      document.getElementById("showAlertModal").click();
+      showAlertModal(true);
     }
   };
 
@@ -138,7 +139,11 @@ export default function Dashboard() {
         )}
       </div>
 
-      <AlertModal text={"Activity berhasil dihapus"} />
+      <AlertModal
+        alertModal={alertModal}
+        showAlertModal={showAlertModal}
+        text={"Activity berhasil dihapus"}
+      />
     </>
   );
 }
