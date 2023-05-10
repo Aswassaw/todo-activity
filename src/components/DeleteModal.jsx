@@ -4,6 +4,7 @@ import { HiOutlineExclamationTriangle } from "react-icons/hi2";
 export default function DeleteModal({ text, item, deleteAction }) {
   return (
     <div
+      data-cy="modal-delete"
       className="modal fade"
       id="deleteModal"
       tabIndex="-1"

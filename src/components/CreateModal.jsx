@@ -92,7 +92,6 @@ export default function CreateModal({ loading, createAction }) {
 
   return (
     <div
-      data-cy="modal-delete"
       className="modal fade"
       id="createModal"
       tabIndex="-1"
