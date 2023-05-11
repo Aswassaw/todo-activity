@@ -39,10 +39,7 @@ export default function Detail() {
     if (!activity.isLoading) {
       let activityCopy = { ...activity };
 
-      if (queryParams.get("sort") === "old") {
-        activityCopy.data.todo_items = _.reverse(activityCopy.data.todo_items);
-        setActivity(activityCopy);
-      } else if (queryParams.get("sort") === "az") {
+      if (queryParams.get("sort") === "az") {
         activityCopy.data.todo_items = _.sortBy(activityCopy.data.todo_items, [
           "title",
         ]);
